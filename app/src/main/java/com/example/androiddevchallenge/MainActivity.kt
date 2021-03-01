@@ -18,44 +18,46 @@ package com.example.androiddevchallenge
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.androiddevchallenge.ui.theme.MyTheme
+import com.example.androiddevchallenge.entity.FakePuppyRepository
+import com.example.androiddevchallenge.entity.PuppyRepository
+import com.example.androiddevchallenge.ui.Navigation
+import com.example.androiddevchallenge.ui.theme.CompawssionTheme
 
+@ExperimentalFoundationApi
 class MainActivity : AppCompatActivity() {
+
+    lateinit var puppyRepository: PuppyRepository
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        puppyRepository = FakePuppyRepository()
+
         setContent {
-            MyTheme {
-                MyApp()
+            CompawssionTheme {
+                Navigation(puppyRepository)
             }
         }
     }
 }
 
-// Start building your app here!
-@Composable
-fun MyApp() {
-    Surface(color = MaterialTheme.colors.background) {
-        Text(text = "Ready... Set... GO!")
-    }
-}
-
+@ExperimentalFoundationApi
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun LightPreview() {
-    MyTheme {
-        MyApp()
+    CompawssionTheme {
+        Navigation(FakePuppyRepository())
     }
 }
 
+@ExperimentalFoundationApi
 @Preview("Dark Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun DarkPreview() {
-    MyTheme(darkTheme = true) {
-        MyApp()
+    CompawssionTheme(darkTheme = true) {
+        Navigation(FakePuppyRepository())
     }
 }
